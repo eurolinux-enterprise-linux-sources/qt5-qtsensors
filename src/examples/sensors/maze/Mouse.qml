@@ -1,12 +1,22 @@
 /****************************************************************************
 **
-** Copyright (C) 2015 The Qt Company Ltd.
-** Contact: http://www.qt.io/licensing/
+** Copyright (C) 2017 The Qt Company Ltd.
+** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the QtSensors module of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** BSD License Usage
+** Alternatively, you may use this file under the terms of the BSD license
+** as follows:
 **
 ** "Redistribution and use in source and binary forms, with or without
 ** modification, are permitted provided that the following conditions are
@@ -60,10 +70,6 @@ Item {
         visible:  true
     }
 
-    function distance(origX, origY, newX, newY) {
-      return Math.sqrt((Math.pow((newX - origX),2)) + (Math.pow((newY - origY),2)))
-    }
-
     //Function for moving the mouse
     function move(newx, newy)
     {
@@ -73,18 +79,8 @@ Item {
 //! [0]
         var a = newy - mouse.y
         var b = newx - mouse.x
-        var c = distance(mouse.x, mouse.y, newx, newy)
         var radians_to_degrees = 57.2957795
-
-        if (a > 0)
-            angle = -Math.acos(a / b) * radians_to_degrees
-        else
-            angle = -Math.asin(b / c) * radians_to_degrees
-        if (b > 0)
-             angle = -Math.acos(a / c) * radians_to_degrees
-        else
-            angle = Math.acos(a / c) * radians_to_degrees
-
+        angle = Math.atan2(-b, a) * radians_to_degrees
         if (angle < 0)
             angle = 360 + angle
 
